@@ -200,13 +200,13 @@ should be computed.
             bs = tf.to_float(tf.shape(pi.x)[0])
             self.loss = pi_loss + 0.5 * vf_loss - entropy * 0.01
 
-            # 45 represents the number of "local steps":  the number of timesteps
+            # 20 represents the number of "local steps":  the number of timesteps
             # we run the policy before we update the parameters.
             # The larger local steps is, the lower is the variance in our policy gradients estimate
             # on the one hand;  but on the other hand, we get less frequent parameter updates, which
             # slows down learning.  In this code, we found that making local steps be much
-            # smaller than 45 makes the algorithm more difficult to tune and to get to work.
-            self.runner = RunnerThread(env, pi, 45, visualise)
+            # smaller than 20 makes the algorithm more difficult to tune and to get to work.
+            self.runner = RunnerThread(env, pi, 20, visualise)
 
 
             grads = tf.gradients(self.loss, pi.var_list)
