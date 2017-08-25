@@ -17,7 +17,7 @@ VISUALISED_WORKERS = [0]  # e.g. [0] or [1,2]
 
 _N_AVERAGE = 100
 
-VSTR = 'V3'
+VSTR = 'V4'
 
 
 class MyEnv:
