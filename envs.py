@@ -17,15 +17,13 @@ VISUALISED_WORKERS = [0]  # e.g. [0] or [1,2]
 
 _N_AVERAGE = 100
 
-VSTR = 'V1'
+VSTR = 'V2'
 
 
 class MyEnv:
     def __init__(self):
         self.spec = None
         self.metadata = {'semantics.autoreset': False}
-        self.observation_space_shape = [2]
-        self.action_space_n = 2
 
         self.max_step = 100
         self._ep_count = 0
@@ -33,12 +31,25 @@ class MyEnv:
 
         self.p_me = 1
         self.p_he = 40
-        self._state = [self.p_me, self.p_he]
+
+        self.observation_space_shape = [2 + self.p_he]
+        self.action_space_n = 2
+
+    def _my_state(self):
+        tmp = self._act_list[-self.p_he:]
+        if len(tmp) < self.p_he:
+            tmp2 = [0] * (self.p_he - len(tmp))
+            tmp2.extend(tmp)
+            tmp = tmp2
+        assert self.p_he == len(tmp)
+        ret = [self.p_me, self.p_he]
+        ret.extend(tmp)
+        return ret
 
     def reset(self):
         self._act_list = []
         self._ep_reward = 0
-        return self._state
+        return self._my_state()
 
     def step(self, act):
         if act != 0 and act != 1:
@@ -60,11 +71,11 @@ class MyEnv:
             i[VSTR+'/aver_rew'] = np.average(self._rewards_last_n_eps)
             print(i)
 
-        return self._state, r, t, i
+        return self._my_state(), r, t, i
 
     def render(self):
         t = ['o']
-        for i in range(1, self._state[1] - self._state[0]):
+        for i in range(1, self.p_he - self.p_me):
             t.append(self._shoot(i))
         t.append('o')
         print(''.join(t))
