@@ -17,7 +17,7 @@ VISUALISED_WORKERS = [0]  # e.g. [0] or [1,2]
 
 _N_AVERAGE = 100
 
-VSTR = 'V0'
+VSTR = 'V1'
 
 
 class MyEnv:
@@ -55,9 +55,9 @@ class MyEnv:
         if t:
             self._ep_count += 1
             self._rewards_last_n_eps.append(self._ep_reward)
-            i[VSTR+'ep_count'] = self._ep_count
-            i[VSTR+'rew'] = self._ep_reward
-            i[VSTR+'aver_rew'] = np.average(self._rewards_last_n_eps)
+            i[VSTR+'/ep_count'] = self._ep_count
+            i[VSTR+'/rew'] = self._ep_reward
+            i[VSTR+'/aver_rew'] = np.average(self._rewards_last_n_eps)
             print(i)
 
         return self._state, r, t, i
