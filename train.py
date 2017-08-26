@@ -1,5 +1,6 @@
-from baselines import deepq
 import envs
+import models
+import simple
 
 
 def callback(lcl, glb):
@@ -10,8 +11,8 @@ def callback(lcl, glb):
 
 def main():
     env = envs.create_env(None)
-    model = deepq.models.mlp([64])
-    act = deepq.learn(
+    model = models.mlp([64])
+    act = simple.learn(
         env,
         q_func=model,
         lr=1e-3,
