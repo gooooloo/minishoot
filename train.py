@@ -17,7 +17,7 @@ def main():
         lr=1e-3,
         max_timesteps=100000,
         buffer_size=50000,
-        exploration_fraction=0.1,
+        exploration_fraction=0.01,
         exploration_final_eps=0.0,
         print_freq=10,
         callback=callback,
