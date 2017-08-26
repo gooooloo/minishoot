@@ -1,23 +1,19 @@
 import logging
 from collections import deque
 import numpy as np
+import gym.spaces
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-PS_IP = '127.0.0.1'
-PS_PORT = 12222
-TB_PORT = 12345
 NUM_GLOBAL_STEPS = 90000000
 SAVE_MODEL_SECS = 30
 SAVE_SUMMARIES_SECS = 30
 LOG_DIR = './log/'
-NUM_WORKER = 4
-VISUALISED_WORKERS = [0]  # e.g. [0] or [1,2]
 
 _N_AVERAGE = 100
 
-VSTR = 'V4'
+VSTR = 'V5'
 
 
 class MyEnv:
@@ -34,6 +30,8 @@ class MyEnv:
 
         self.observation_space_shape = [2 + self.p_he]
         self.action_space_n = 2
+        self.action_space = gym.spaces.Discrete(2)
+        self.observation_space = gym.spaces.Box(-np.inf, np.inf, [2 + self.p_he])
 
     def _my_state(self):
         tmp = self._act_list[-self.p_he:]
@@ -69,7 +67,6 @@ class MyEnv:
             i[VSTR+'/ep_count'] = self._ep_count
             i[VSTR+'/rew'] = self._ep_reward
             i[VSTR+'/aver_rew'] = np.average(self._rewards_last_n_eps)
-            print(i)
 
         return self._my_state(), r, t, i
 
