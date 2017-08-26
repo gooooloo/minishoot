@@ -13,7 +13,7 @@ LOG_DIR = './log/'
 
 _N_AVERAGE = 100
 
-VSTR = 'V6'
+VSTR = 'V7'
 
 
 class MyEnv:
@@ -31,18 +31,10 @@ class MyEnv:
         self.observation_space_shape = [2 + self.p_he]
         self.action_space_n = 2
         self.action_space = gym.spaces.Discrete(2)
-        self.observation_space = gym.spaces.Box(-np.inf, np.inf, [2 + self.p_he])
+        self.observation_space = gym.spaces.Box(-np.inf, np.inf, [2])
 
     def _my_state(self):
-        tmp = self._act_list[-self.p_he:]
-        if len(tmp) < self.p_he:
-            tmp2 = [0] * (self.p_he - len(tmp))
-            tmp2.extend(tmp)
-            tmp = tmp2
-        assert self.p_he == len(tmp)
-        ret = [self.p_me, self.p_he]
-        ret.extend(tmp)
-        return ret
+        return [self.p_me, self.p_he]
 
     def reset(self):
         self._act_list = []
