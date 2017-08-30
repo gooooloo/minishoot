@@ -13,7 +13,7 @@ LOG_DIR = './log/'
 
 _N_AVERAGE = 100
 
-VSTR = 'V8'
+VSTR = 'V6.1'
 
 
 class MyEnv:
@@ -54,7 +54,7 @@ class MyEnv:
             assert ValueError("act should only be 0 or 1")
 
         dur = self.p_he - self.p_me
-        r = 1 if len(self._act_list) >= dur and self._act_list[-dur] == 1 else -1
+        r = 1 if len(self._act_list) >= dur and self._act_list[-dur] == 1 else 0
 
         self._act_list.append(act)
         t = len(self._act_list) >= self.max_step
