@@ -1,6 +1,5 @@
 import numpy as np
 import os
-import time
 import dill
 import tempfile
 import tensorflow as tf
@@ -251,7 +250,6 @@ def learn(env,
                 logger.record_tabular("mean 100 episode reward", mean_100ep_reward)
                 logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
                 logger.dump_tabular()
-                time.sleep(1)
 
             if (checkpoint_freq is not None and t > learning_starts and
                     num_episodes > 100 and t % checkpoint_freq == 0):
