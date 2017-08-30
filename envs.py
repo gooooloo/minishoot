@@ -13,7 +13,7 @@ LOG_DIR = './log/'
 
 _N_AVERAGE = 100
 
-VSTR = 'V6.1'
+VSTR = 'V6.2'
 
 
 class MyEnv:

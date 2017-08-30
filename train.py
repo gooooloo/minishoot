@@ -21,8 +21,7 @@ def main():
         exploration_fraction=0.01,
         exploration_final_eps=0.0,
         print_freq=10,
-        callback=callback,
-        prioritized_replay=True
+        callback=callback
     )
     print("Saving model to {}_model.pkl".format(envs.VSTR))
     act.save("{}_model.pkl".format(envs.VSTR))
