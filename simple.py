@@ -176,6 +176,7 @@ def learn(env,
         num_actions=env.action_space.n,
         optimizer=tf.train.AdamOptimizer(learning_rate=lr),
         gamma=gamma,
+        double_q=True,
         grad_norm_clipping=10
     )
     act_params = {
